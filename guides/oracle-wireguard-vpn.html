@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>나는 왜 매달 VPN에 돈을 냈을까? | 알뜰한 K씨</title>
+    <meta name="description" content="Oracle Cloud Free Tier 무료 VM과 WireGuard로 개인 VPN을 만드는 절약 가이드. 비용, 장단점, 준비물, 실행 흐름을 정리했습니다.">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="알뜰한 K씨 홈">
+        <span class="brand-mark">K</span>
+        <span>알뜰한 K씨</span>
+      </a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="../index.html#guides">가이드</a>
+        <a href="../index.html#method">검증 기준</a>
+        <a href="../index.html#about">소개</a>
+      </nav>
+    </header>
+
+    <main class="article-layout">
+      <article class="article">
+        <p class="eyebrow">돈 새는 구멍 #1</p>
+        <h1>나는 왜 매달 VPN에 돈을 냈을까?</h1>
+        <p class="lead">
+          유료 VPN을 매달 결제하고 있다면, 개인용 보안 접속 목적만큼은 무료 클라우드 서버와 WireGuard로 대체할 수 있습니다.
+        </p>
+
+        <aside class="summary-box">
+          <h2>한 줄 결론</h2>
+          <p>
+            Oracle Cloud Free Tier 무료 VM에 WireGuard를 설치하면, 카페 와이파이 보안용 개인 VPN을 거의 0원으로 만들 수 있습니다.
+          </p>
+        </aside>
+
+        <section>
+          <h2>얼마나 아낄 수 있나</h2>
+          <p>
+            유료 VPN을 월 5,000~15,000원으로 잡으면 1년에 약 6만~18만원이 나갑니다. 개인 VPN으로 대체 가능한 사용자는 이 비용을 줄일 수 있습니다.
+          </p>
+          <div class="calc-card">
+            <span>월 9,900원 VPN</span>
+            <strong>연 118,800원</strong>
+            <span>직접 구축하면 절약 후보</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>왜 무료인가</h2>
+          <p>
+            Oracle Cloud Free Tier는 일정 범위의 컴퓨팅 자원, 스토리지, 트래픽을 무료로 제공합니다. 여기에 WireGuard라는 오픈소스 VPN 서버를 직접 설치하는 방식입니다.
+          </p>
+          <p>
+            정확히 말하면 Oracle이 “무료 VPN 상품”을 제공하는 게 아니라, 무료 서버 자원을 이용해 내 VPN을 직접 만드는 구조입니다.
+          </p>
+        </section>
+
+        <section>
+          <h2>이런 사람에게 맞습니다</h2>
+          <ul class="check-list">
+            <li>카페, 공항, 호텔 와이파이를 자주 쓰는 사람</li>
+            <li>구독형 VPN의 월 비용이 아깝다고 느끼는 사람</li>
+            <li>기본적인 계정 가입과 복사 붙여넣기 명령어를 따라 할 수 있는 사람</li>
+            <li>넷플릭스 우회보다 개인 접속 보안이 목적인 사람</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>이런 사람에게는 비추천</h2>
+          <ul class="warning-list">
+            <li>국가 우회 스트리밍이 주목적인 사람</li>
+            <li>완전 익명성을 기대하는 사람</li>
+            <li>서버 관리, 보안 업데이트, 장애 대응이 싫은 사람</li>
+            <li>카드 인증이 필요한 클라우드 가입이 부담스러운 사람</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>준비물</h2>
+          <div class="step-grid">
+            <div><strong>Oracle Cloud 계정</strong><span>무료 티어 사용</span></div>
+            <div><strong>결제카드 인증</strong><span>본인 확인용</span></div>
+            <div><strong>WireGuard 앱</strong><span>휴대폰/노트북 접속</span></div>
+            <div><strong>30~60분</strong><span>첫 설정 기준</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>실행 흐름</h2>
+          <ol class="steps">
+            <li>Oracle Cloud Free Tier 계정을 만듭니다.</li>
+            <li>Always Free 대상 VM을 생성합니다.</li>
+            <li>서버 방화벽에서 WireGuard 포트를 엽니다.</li>
+            <li>서버에 WireGuard를 설치합니다.</li>
+            <li>휴대폰이나 노트북에 WireGuard 앱을 설치합니다.</li>
+            <li>생성된 설정 파일 또는 QR 코드로 접속합니다.</li>
+            <li>IP 변경, 속도, 연결 안정성을 확인합니다.</li>
+          </ol>
+          <p class="note">
+            실제 Oracle 계정 생성과 VM 생성은 아직 검증 전입니다. 아래 명령어는 Ubuntu 서버가 만들어진 뒤 서버 안에서 확인할 검증용 초안입니다.
+          </p>
+        </section>
+
+        <section>
+          <h2>검증용 명령어 초안</h2>
+          <div class="command-card">
+            <p><strong>1단계: 서버 기본 상태 확인</strong></p>
+            <pre><code>whoami
+lsb_release -a
+ip addr
+sudo apt update && sudo apt upgrade -y</code></pre>
+          </div>
+          <div class="command-card">
+            <p><strong>2단계: WireGuard 설치</strong></p>
+            <pre><code>sudo apt install -y wireguard qrencode
+wg genkey | tee privatekey | wg pubkey > publickey
+sudo sysctl -w net.ipv4.ip_forward=1</code></pre>
+          </div>
+          <div class="command-card">
+            <p><strong>3단계: 연결 확인</strong></p>
+            <pre><code>sudo systemctl status wg-quick@wg0
+sudo wg
+curl ifconfig.me</code></pre>
+          </div>
+          <p class="note">
+            최종 가이드에는 직접 구축 후 실제 설정 파일 구조, Oracle 보안 목록/방화벽 설정, QR 연결 캡처, 실패 로그를 반영합니다.
+          </p>
+        </section>
+
+        <section>
+          <h2>실패 체크리스트</h2>
+          <table class="trouble-table">
+            <thead>
+              <tr><th>증상</th><th>확인할 것</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Oracle 가입 실패</td><td>카드 인증, 지역, 기존 계정 여부, 무료 티어 정책 변경</td></tr>
+              <tr><td>VM 생성 실패</td><td>Always Free 대상 이미지/shape인지, 리전 자원 부족 여부</td></tr>
+              <tr><td>VPN 연결 안 됨</td><td>UDP 51820 포트, Oracle 보안 목록, 서버 ufw/iptables</td></tr>
+              <tr><td>연결은 되는데 인터넷 안 됨</td><td>IP forwarding, NAT masquerade, 클라이언트 AllowedIPs</td></tr>
+              <tr><td>속도가 너무 느림</td><td>서버 리전, 무료 VM 성능, 회선 상태, MTU 설정</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>주의사항</h2>
+          <p>
+            무료 티어 정책은 바뀔 수 있고, 클라우드 계정 생성 과정에서 지역/카드/계정 상태에 따라 실패할 수 있습니다. 또한 개인 서버는 내가 관리해야 하므로 보안 업데이트와 접속 권한 관리가 필요합니다.
+          </p>
+          <p>
+            이 방식은 “넷플릭스 우회용 무료 VPN”이나 “완전 익명성 도구”가 아닙니다. 공용 와이파이에서 내 기기와 내 서버 사이의 통신을 보호하는 개인 접속 도구에 가깝습니다.
+          </p>
+        </section>
+
+        <section>
+          <h2>대체 옵션</h2>
+          <p>
+            직접 구축이 귀찮다면 Proton VPN 무료 플랜 같은 대안을 먼저 검토할 수 있습니다. 속도, 국가 선택, 동시 접속 제한은 서비스마다 다릅니다.
+          </p>
+        </section>
+
+        <section class="video-brief">
+          <h2>영상 스토리 초안</h2>
+          <p>
+            K씨가 결제 내역에서 VPN 월 9,900원을 발견합니다. 1년 비용을 계산하고 멈칫합니다. 무료 서버로 개인 VPN을 만들 수 있다는 사실을 알게 되지만, 곧 “공짜에는 귀찮음이 붙는다”는 것도 깨닫습니다. 결국 K씨는 직접 구축할 사람과 그냥 유료 VPN을 쓰는 게 나은 사람을 나눠 결론을 내립니다.
+          </p>
+        </section>
+      </article>
+
+      <aside class="sidebar">
+        <div class="ad-box">광고 자리</div>
+        <div class="side-card">
+          <h2>판단 요약</h2>
+          <p><strong>추천:</strong> 개인 보안용 VPN이 필요한 절약형 사용자</p>
+          <p><strong>비추천:</strong> 우회 스트리밍, 완전 익명성, 무관리 사용</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>마지막 업데이트: 2026-06-18</p>
+      <p>이 페이지는 정보 제공용입니다. 계정 생성, 보안 설정, 클라우드 과금 조건은 직접 확인해야 합니다.</p>
+    </footer>
+  </body>
+</html>
