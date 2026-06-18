@@ -340,6 +340,48 @@ a {
   font-size: clamp(26px, 4vw, 42px);
 }
 
+.section-lead {
+  max-width: 760px;
+  color: #303030;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.post-list,
+.idea-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.idea-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.idea-grid article {
+  padding: 22px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.idea-grid h3 {
+  margin: 14px 0 10px;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.status-pill {
+  display: inline-flex;
+  padding: 6px 10px;
+  background: var(--red);
+  color: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .guide-card p,
 .about p,
 .article p,
@@ -361,6 +403,7 @@ a {
 .summary-box,
 .calc-card,
 .command-card,
+.review-box,
 .ad-box {
   padding: 18px;
   background: #fff6d8;
@@ -543,7 +586,8 @@ a {
   .hero,
   .guide-card,
   .split,
-  .article-layout {
+  .article-layout,
+  .idea-grid {
     grid-template-columns: 1fr;
   }
 
