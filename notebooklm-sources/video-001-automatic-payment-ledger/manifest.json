@@ -1,0 +1,24 @@
+{
+  "project": "알뜰한 K씨",
+  "purpose": "NotebookLM GitHub source for video production reference only",
+  "repository": "https://github.com/Geniushyuk/frugal-k",
+  "source_path": "notebooklm-sources/video-001-automatic-payment-ledger/",
+  "video": "001 자동결제 장부",
+  "rules": [
+    "36 cuts",
+    "about 5 seconds per cut",
+    "pure white background",
+    "no forced subtitle-safe bottom space",
+    "keep K씨 character consistent",
+    "no real logos",
+    "narration must match cutboard"
+  ],
+  "documents": [
+    "hermes-image-handoff-command.md",
+    "grok-all-image-prompts.md",
+    "grok-video-handoff-command.md",
+    "cut-data.json",
+    "video-001-elevenlabs-narration.txt",
+    "README.md"
+  ]
+}
